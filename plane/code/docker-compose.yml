@@ -63,7 +63,7 @@ x-app-env: &app-env
 
 services:
   web:
-    image: artifacts.plane.so/makeplane/plane-frontend:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-web:v1
     deploy:
       replicas: ${WEB_REPLICAS:-1}
       restart_policy:
@@ -73,7 +73,7 @@ services:
       - worker
 
   space:
-    image: artifacts.plane.so/makeplane/plane-space:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-space:v1
     deploy:
       replicas: ${SPACE_REPLICAS:-1}
       restart_policy:
@@ -84,7 +84,7 @@ services:
       - web
 
   admin:
-    image: artifacts.plane.so/makeplane/plane-admin:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-admin:v1
     deploy:
       replicas: ${ADMIN_REPLICAS:-1}
       restart_policy:
@@ -106,7 +106,7 @@ services:
       - web
 
   api:
-    image: artifacts.plane.so/makeplane/plane-backend:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-api:v1
     command: ./bin/docker-entrypoint-api.sh
     deploy:
       replicas: ${API_REPLICAS:-1}
@@ -122,7 +122,7 @@ services:
       - plane-mq
 
   worker:
-    image: artifacts.plane.so/makeplane/plane-backend:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-api:v1
     command: ./bin/docker-entrypoint-worker.sh
     deploy:
       replicas: ${WORKER_REPLICAS:-1}
@@ -139,7 +139,7 @@ services:
       - plane-mq
 
   beat-worker:
-    image: artifacts.plane.so/makeplane/plane-backend:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-api:v1
     command: ./bin/docker-entrypoint-beat.sh
     deploy:
       replicas: ${BEAT_WORKER_REPLICAS:-1}
@@ -156,7 +156,7 @@ services:
       - plane-mq
 
   migrator:
-    image: artifacts.plane.so/makeplane/plane-backend:${APP_RELEASE:-v1.2.1}
+    image: debianmaster/plane-api:v1
     command: ./bin/docker-entrypoint-migrator.sh
     deploy:
       replicas: 1
